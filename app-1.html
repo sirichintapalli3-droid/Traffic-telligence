@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TrafficTelligence - Traffic Estimation</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("https://www.bentleymotors.com/content/dam/bm/websites/bmcom/bentleymotors-com/homepage/26my-azure/GT%20Azure%20Dynamic%20Desktop.jpg/_jcr_content/renditions/original.image_file.1286.643.file/GT%20Azure%20Dynamic%20Desktop.jpg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: #fff;
+    }
+
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.65);
+      min-height: 100vh;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 400px;
+      width: 100%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+
+    p {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    form label {
+      display: block;
+      margin: 0.5rem 0 0.25rem;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+      <h1>TrafficTelligence</h1>
+      <p>Advanced Traffic Volume Estimation with Machine Learning</p>
+
+      <form action="/predict" method="post">
+        <label for="date_time">Date & Time:</label>
+        <input type="text" id="date_time" name="date_time" placeholder="YYYY-MM-DD HH:MM:SS" required>
+
+        <label for="temp">Temperature (°C):</label>
+        <input type="number" step="0.01" id="temp" name="temp" required>
+
+        <label for="rain">Rain (mm):</label>
+        <input type="number" step="0.01" id="rain" name="rain" required>
+
+        <label for="snow">Snow (mm):</label>
+        <input type="number" step="0.01" id="snow" name="snow" required>
+
+        <label for="clouds">Cloud Coverage (%):</label>
+        <input type="number" id="clouds" name="clouds" required>
+
+        <label for="weather_main">Weather Main:</label>
+        <input type="text" id="weather_main" name="weather_main" placeholder="e.g., Clear, Clouds" required>
+
+        <label for="weather_description">Weather Description:</label>
+        <input type="text" id="weather_description" name="weather_description" placeholder="e.g., scattered clouds" required>
+
+        <input type="submit" value="Estimate Traffic Volume">
+      </form>
+    </div>
+  </div>
+</body>
+</html>
