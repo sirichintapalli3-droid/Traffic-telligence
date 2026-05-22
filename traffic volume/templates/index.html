@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Traffic Volume Estimation</title>
+
+    <!-- Chart JS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1502877338535-766e1452684a');
+
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            height: 100vh;
+        }
+
+        .container {
+            width: 450px;
+            padding: 25px;
+            margin: 40px auto;
+
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+
+            text-align: center;
+
+            box-shadow: 0px 10px 25px rgba(57, 55, 55, 0.785);
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+        }
+
+        input,
+        select {
+            width: 90%;
+            padding: 10px;
+            margin: 8px;
+
+            border-radius: 8px;
+            border: 1px solid #821313;
+        }
+
+        button {
+            background: #1e3c72;
+            color: white;
+
+            padding: 10px 20px;
+
+            border: none;
+            border-radius: 8px;
+
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #2a5298;
+        }
+
+        h3 {
+            color: rgb(222, 26, 26);
+        }
+
+        canvas {
+            max-height:300px;
+        }
+.chart-container{
+    width: 500px;
+    margin: auto;
+    height: 350px;
+}
+canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+  </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h2>Traffic Volume Estimation 🚦</h2>
+
+        <form action="/predict" method="POST">
+
+            <input type="number" name="hour" placeholder="Enter Hour" required>
+
+            <input type="number" name="temperature" placeholder="Enter Temperature" required>
+
+            <select name="weather">
+                <option value="0">Normal Weather</option>
+                <option value="1">Rainy Weather</option>
+                <option value="3">Hot</option>
+                <option value="4">Cool</option>
+                <option value="5">Windy</option>
+            </select>
+
+            <input type="number" name="day" placeholder="Enter Day (0-6)" required>
+
+            <input type="number" name="month" placeholder="Enter Month" required>
+
+            <select name="holiday">
+                <option value="0">Not Holiday</option>
+                <option value="1">Holiday</option>
+            </select>
+
+            <select name="road_type">
+                <option value="0">City Road</option>
+                <option value="1">Highway</option>
+                <option value="2">Main Road</option>
+            </select>
+
+            <button type="submit">
+                Predict Traffic
+            </button>
+
+        </form>
+
+        {% if prediction %}
+
+        <h3>
+            Estimated Traffic Volume:
+            {{ prediction }}
+        </h3>
+<div class="chart-container">
+        <canvas id="myChart"></canvas>
+    </div>
+        <script>
+
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+
+                type:'bar', 
+
+                data: {
+
+                    labels: ['Traffic Prediction'],
+
+                    datasets: [{
+
+                        label: 'Traffic Volume',
+
+                        data: [parseInt("{{ prediction }}")],
+
+                        fill: false,
+
+                        tension: 0.4,
+
+                        borderWidth: 3
+
+                    }]
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    scales: {
+
+                        y: {
+                            beginAtZero: true
+                        }
+
+                    }
+
+                }
+
+            });
+
+        </script>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
